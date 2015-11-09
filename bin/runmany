@@ -4,6 +4,28 @@ function main {
   local cnt_proc="1"
   local cnt_args="1"
 
+  local command_args=()
+  local dash_args=()
+  local fl_args=
+
+  # process args after --
+  while [[ "$#" -gt 0 ]]; do
+    if [[ "$1" == "--" && -z "$fl_args" ]]; then
+      shift
+      fl_args=1
+      continue
+    fi
+
+    if [[ -n "$fl_args" ]]; then
+      dash_args+=("$1")
+    else
+      command_args+=("$1")
+    fi
+    shift
+  done
+
+  set -- "${command_args[@]}"
+
   # check if number of processess is specified
   if [[ "${1:-}" =~ ^[1-9][0-9]*$ ]]; then
     cnt_proc="$1"; shift
@@ -14,10 +36,22 @@ function main {
   fi
 
   if [[ -z "${1:-}" ]]; then
-    echo "ERROR: missing command" 1>&2
+    echo "ERROR: missing command_args" 1>&2
     return 1
   fi
-  local cmd="$1"; shift
+
+  local cmd
+  if [[ -n "$fl_args" ]]; then
+    cmd="$*"
+    set --
+  else
+    cmd="$1"
+    shift
+  fi
+
+  if [[ "${#dash_args[@]}" -gt -0 ]]; then
+    set -- "$@" "${dash_args[@]}"
+  fi
 
   # check if any arguments
   if [[ "$#" -gt 0 ]]; then
