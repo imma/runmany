@@ -55,7 +55,10 @@ function main {
 
   # check if any arguments
   if [[ "$#" -gt 0 ]]; then
-    echo "$@"
+    while [[ "$#" -gt 0 ]]; do
+      echo "${1// /\\ }"
+      shift
+    done
   else
     # otherwise read arguments from stdin
     cat
