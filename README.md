@@ -1,5 +1,1 @@
-Setup
-=====
-
-For bash, source `script/profile` to expose the `runmany` command.  Requires the
-`defn/sub` project installed and sourced.
+Visit http://defn.sh/runmany/ or open `docs/index.html`
