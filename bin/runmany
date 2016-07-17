@@ -53,6 +53,13 @@ function main {
     set -- "$@" "${args_dash[@]}" # using :- in case of empty array results in empty string quoted
   fi
 
+  local xopts=
+  case "$(uname -s)" in
+    Linux)
+      xopts="-r"
+      ;;
+  esac
+
   # check if any arguments
   if [[ "$#" -gt 0 ]]; then
     while [[ "$#" -gt 0 ]]; do
@@ -62,7 +69,7 @@ function main {
   else
     # otherwise read arguments from stdin
     cat
-  fi | xargs -n "$cnt_args" -P "$cnt_proc" bash -c "$cmd" "" 
+  fi | xargs ${xopts:+$xopts} -n "$cnt_args" -P "$cnt_proc" bash -c "$cmd" "" 
 }
 
 source sub "$0" "$@"
