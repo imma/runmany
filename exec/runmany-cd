@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+function main {
+  local cmd="$1"; shift
+  runmany "$(printf 'cd $1 && %s' "$cmd")" "$@"
+}
+
+source sub "$0" "$@"
