@@ -60,6 +60,8 @@ function main {
       ;;
   esac
 
+  local cmd_xargs="$(which gxargs xargs | head -1)"
+
   # check if any arguments
   if [[ "$#" -gt 0 ]]; then
     while [[ "$#" -gt 0 ]]; do
@@ -69,7 +71,7 @@ function main {
   else
     # otherwise read arguments from stdin
     cat
-  fi | xargs ${xopts:+$xopts} -n "$cnt_args" -P "$cnt_proc" bash -c "$cmd" "" 
+  fi | "$cmd_xargs" ${xopts:+$xopts} -n "$cnt_args" -P "$cnt_proc" bash -c "$cmd" "" 
 }
 
 source sub "$0" "$@"
