@@ -1,0 +1,19 @@
+{
+  "menu": {
+    "runmany": [
+      {
+        "identifier": "runmany_overview",
+        "weight": 101
+      },
+      {
+        "identifier": "runmany_install",
+        "weight": 102
+      },
+      {
+        "identifier": "runmany_usage",
+        "weight": 103
+      }
+    ],
+     "index": []
+  }
+}
