@@ -60,7 +60,7 @@ function main {
       ;;
   esac
 
-  local cmd_xargs="$(which gxargs xargs | head -1)"
+  local cmd_xargs="$(which gxargs xargs 2>/dev/null | head -1)"
 
   # check if any arguments
   if [[ "$#" -gt 0 ]]; then
